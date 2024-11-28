@@ -1,3 +1,44 @@
 ﻿<div class="text-start">
     <h1 class="display-6">Categories</h1>
 </div>
+
+<div class="card">
+    <h5 class="card-header">
+        @* <button type="button" class="btn btn-primary" id="btn-create" onclick=@Html.ActionLink("", "Create", new {}) value="Create New" /> *@
+        @* @Html.ActionLink("Create New", "Create", new { @class = "btn btn-primary" }) *@
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Create New</button>
+    </h5>
+    <div class="card-body">
+        <div class="table-responsive" id="panel-body">
+            Loading...
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(() => {
+            GetList()
+        })
+
+        function GetList() {
+            $.ajax({
+                url: '@Url.Action("List")',
+                type: 'get',
+                success: function (result) {
+                    $('#panel-body').html(result)
+                }
+            })
+        }
+
+        function OnCreate() {
+            $.ajax({
+                url: '@Url.Action("Create")',
+                type: 'get',
+                success: function (result) {
+                    $('#panel-body').html(result)
+                }
+            })
+        }
+    </script>
+}

@@ -1,23 +1,24 @@
 ﻿@model IEnumerable<XsisPos.Dto.CategoryDto>
-@{
-    Layout = null;
-}
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>
+            <th width="100px">
                 @Html.DisplayNameFor(model => model.Id)
             </th>
-            <th>
+            <th width="200px">
                 @Html.DisplayNameFor(model => model.Initial)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            <th width="200px">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -34,9 +35,16 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    @* |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) *@
                 </td>
             </tr>
         }
