@@ -114,5 +114,42 @@ namespace XsisPos.Web.Controllers
             }
             return View("_Edit", dto);
         }
+        public async Task<IActionResult> Delete(int id)
+        {
+            ModifyCategoryDto item = new ModifyCategoryDto();
+            using (var response = await _httpClientHelper.GetHttpClient().GetAsync($"categories/{id}"))
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                item = JsonConvert.DeserializeObject<ModifyCategoryDto>(apiResponse)!;
+            }
+            return View("_Delete", item);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(ModifyCategoryDto dto)
+        {
+            using (var response = await _httpClientHelper.GetHttpClient().DeleteAsync($"categories/{dto.Id}"))
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var apiResponse = await response.Content.ReadAsStringAsync();
+                    bool result = JsonConvert.DeserializeObject<bool>(apiResponse)!;
+                    if (result)
+                    {
+                        ViewBag.Deleted = "Delete successful";
+                    }
+                    else
+                    {
+                        ViewBag.Deleted = "Delete unsuccessful";
+                    }
+                }
+                else
+                {
+                    ViewBag.Error = "Delete error";
+                }
+            }
+            return View("_Delete", dto);
+        }
+
     }
 }
