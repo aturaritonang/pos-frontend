@@ -1,16 +1,33 @@
-﻿<div class="text-start">
+﻿@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="text-start">
     <h1 class="display-6">Products</h1>
 </div>
 
 <div class="card">
     <h5 class="card-header">
-        @* <button type="button" class="btn btn-primary" id="btn-create" onclick=@Html.ActionLink("", "Create", new {}) value="Create New" /> *@
-        @* @Html.ActionLink("Create New", "Create", new { @class = "btn btn-primary" }) *@
-        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Create New</button>
+        @* <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Create New</button> *@
+        <button type="button" class="btn btn-primary" id="btn-create">Create New</button>
     </h5>
     <div class="card-body">
         <div class="table-responsive" id="panel-body">
             Loading...
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
         </div>
     </div>
 </div>
@@ -40,5 +57,17 @@
                 }
             })
         }
+
+        $("#btn-create").click(() => {
+            $.ajax({
+                url: '@Url.Action("Create")',
+                type: 'get',
+                success: function (result) {
+                    $(".modal-title").html("Create");
+                    $(".modal-body").html(result);
+                    $(".modal").modal("show");
+                }
+            });
+        });
     </script>
 }

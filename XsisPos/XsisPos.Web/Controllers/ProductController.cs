@@ -34,7 +34,8 @@ namespace XsisPos.Web.Controllers
         {
             var categories = await GetCategories();
             ViewBag.CategoryList = new SelectList((List<CategoryDto>)categories, "Id", "Name");
-            return View("_Create");
+            //return View("_Create");
+            return PartialView("_Create");
         }
 
         [HttpPost]
@@ -58,7 +59,8 @@ namespace XsisPos.Web.Controllers
                     ViewBag.Error = "Create error";
                 }
             }
-            return View("_Create", dto);
+            //return View("_Create", dto);
+            return PartialView("_Create", dto);
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -80,7 +82,8 @@ namespace XsisPos.Web.Controllers
                 };
             }
             ViewBag.CategoryList = new SelectList(await GetCategories(), "Id", "Name");
-            return View("_Edit", item);
+            //return View("_Edit", item);
+            return PartialView("_Edit", item);
         }
 
         [HttpPost]
@@ -102,7 +105,8 @@ namespace XsisPos.Web.Controllers
             }
 
             ViewBag.CategoryList = new SelectList((List<CategoryDto>)await GetCategories(), "Id", "Name");
-            return View("_Edit", dto);
+            //return View("_Edit", dto);
+            return PartialView("_Edit", dto);
         }
 
         public async Task<List<CategoryDto>> GetCategories()

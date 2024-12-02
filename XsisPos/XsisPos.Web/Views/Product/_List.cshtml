@@ -47,11 +47,38 @@
                     @Html.DisplayFor(modelItem => item.Active)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @* @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) *@
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="btn btn-warning btn-edit" data-id="@item.Id">
+                            Edit
+                        </button>
+                        <button type="button" class="btn btn-success btn-details" data-id="@item.Id">
+                            Details
+                        </button>
+                        <button type="button" class="btn btn-danger btn-delete" data-id="@item.Id">
+                            Delete
+                        </button>
+                    </div>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<script type="text/javascript">
+    $(".btn-edit").click(function () {
+        $.ajax({
+            url: "@Url.Action("Edit")",
+            type: "get",
+            data: { id: $(this).attr("data-id") },
+            success: function (result) {
+                if (result) {
+                    $(".modal-title").html("Edit");
+                    $(".modal-body").html(result);
+                    $(".modal").modal("show");
+                }
+            }
+        })
+    })
+</script>
