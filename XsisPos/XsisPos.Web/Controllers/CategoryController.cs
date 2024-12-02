@@ -15,21 +15,6 @@ namespace XsisPos.Web.Controllers
             _httpClientHelper = new HttpClientHelper(configuration);
         }
 
-        private static List<CategoryDto> _list = new List<CategoryDto>() {
-            new CategoryDto()
-            {
-                Id = 1,
-                Initial = "Food",
-                Name = "Fresh Food",
-            },
-            new CategoryDto()
-            {
-                Id = 2,
-                Initial = "Drink",
-                Name = "Fresh Drink",
-            },
-        };
-
         public IActionResult Index()
         {
             return View();
