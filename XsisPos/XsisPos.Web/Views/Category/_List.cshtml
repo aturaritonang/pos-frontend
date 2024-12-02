@@ -3,9 +3,9 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th width="100px">
+            @* <th width="100px">
                 @Html.DisplayNameFor(model => model.Id)
-            </th>
+            </th> *@
             <th width="200px">
                 @Html.DisplayNameFor(model => model.Initial)
             </th>
@@ -25,9 +25,9 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                @* <td>
                     @Html.DisplayFor(modelItem => item.Id)
-                </td>
+                </td> *@
                 <td>
                     @Html.DisplayFor(modelItem => item.Initial)
                 </td>

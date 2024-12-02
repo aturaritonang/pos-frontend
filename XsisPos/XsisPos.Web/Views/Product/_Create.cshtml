@@ -1,23 +1,23 @@
-﻿@model XsisPos.Dto.ChangeCategoryDto
+﻿@model XsisPos.Dto.ChangeProductDto
 
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @{
-                if (!String.IsNullOrEmpty(ViewBag.Saved))
-                {
-                    <div class="text-success">@ViewBag.Saved</div>
-                }
-                if (!String.IsNullOrEmpty(ViewBag.Error))
-                {
-                    <div class="text-danger">@ViewBag.Error</div>
-                }
-            }
-            <div class="form-group" hidden>
+            <div class="form-group">
                 <label asp-for="Id" class="control-label"></label>
                 <input asp-for="Id" readonly class="form-control" />
                 <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            @* <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <input asp-for="CategoryId" class="form-control" />
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label">Category</label>
+                @Html.DropDownListFor(model => model.CategoryId, (IEnumerable<SelectListItem>)ViewBag.CategoryList, "Select Category", new { @class = "form-control" })
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Initial" class="control-label"></label>
@@ -39,14 +39,9 @@
                     <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
                 </label>
             </div>
-            @{
-                if (String.IsNullOrEmpty(ViewBag.Saved))
-                {
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary" />
-                    </div>
-                }
-            }
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
         </form>
     </div>
 </div>

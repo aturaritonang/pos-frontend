@@ -63,7 +63,7 @@ namespace XsisPos.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ModifyCategoryDto dto)
+        public async Task<IActionResult> Create(ChangeCategoryDto dto)
         {
             string strPayload = JsonConvert.SerializeObject(dto);
             HttpContent content = new StringContent(strPayload, Encoding.UTF8, "application/json");
@@ -72,7 +72,7 @@ namespace XsisPos.Web.Controllers
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    dto = JsonConvert.DeserializeObject<ModifyCategoryDto>(apiResponse)!;
+                    dto = JsonConvert.DeserializeObject<ChangeCategoryDto>(apiResponse)!;
                     ViewBag.Saved = "Create successful";
                 }
                 else
@@ -85,17 +85,17 @@ namespace XsisPos.Web.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            ModifyCategoryDto item = new ModifyCategoryDto();
+            ChangeCategoryDto item = new ChangeCategoryDto();
             using (var response = await _httpClientHelper.GetHttpClient().GetAsync($"categories/{id}"))
             {
                 var apiResponse = await response.Content.ReadAsStringAsync();
-                item = JsonConvert.DeserializeObject<ModifyCategoryDto>(apiResponse)!;
+                item = JsonConvert.DeserializeObject<ChangeCategoryDto>(apiResponse)!;
             }
             return View("_Edit", item);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(ModifyCategoryDto dto)
+        public async Task<IActionResult> Edit(ChangeCategoryDto dto)
         {
             string strPayload = JsonConvert.SerializeObject(dto);
             HttpContent content = new StringContent(strPayload, Encoding.UTF8, "application/json");
@@ -104,7 +104,7 @@ namespace XsisPos.Web.Controllers
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    dto = JsonConvert.DeserializeObject<ModifyCategoryDto>(apiResponse)!;
+                    dto = JsonConvert.DeserializeObject<ChangeCategoryDto>(apiResponse)!;
                     ViewBag.Saved = "Edit successful";
                 }
                 else
@@ -116,17 +116,17 @@ namespace XsisPos.Web.Controllers
         }
         public async Task<IActionResult> Delete(int id)
         {
-            ModifyCategoryDto item = new ModifyCategoryDto();
+            ChangeCategoryDto item = new ChangeCategoryDto();
             using (var response = await _httpClientHelper.GetHttpClient().GetAsync($"categories/{id}"))
             {
                 var apiResponse = await response.Content.ReadAsStringAsync();
-                item = JsonConvert.DeserializeObject<ModifyCategoryDto>(apiResponse)!;
+                item = JsonConvert.DeserializeObject<ChangeCategoryDto>(apiResponse)!;
             }
             return View("_Delete", item);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(ModifyCategoryDto dto)
+        public async Task<IActionResult> Delete(ChangeCategoryDto dto)
         {
             using (var response = await _httpClientHelper.GetHttpClient().DeleteAsync($"categories/{dto.Id}"))
             {
